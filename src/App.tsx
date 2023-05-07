@@ -1,33 +1,13 @@
-import { Fragment, useEffect } from 'react'
-import './App.css'
+import { useEffect } from 'react'
+
+import { SomeoneIsTyping } from './components/SomeoneIsTyping'
+import { StorageLoading } from './components/StorageLoading'
+import { WhoIsHere } from './components/WhoIsHere'
 import useStore from './store'
 
+import './App.css'
+
 const roomId = 'zustand-todo-list'
-
-const WhoIsHere = () => {
-   const othersUsersCount = useStore((state) => state.liveblocks.others.length)
-
-   return (
-      <div className="who_is_here">
-         Existem {othersUsersCount} outros usuários on-line
-      </div>
-   )
-}
-
-const SomeoneIsTyping = () => {
-   const others = useStore((state) => state.liveblocks.others)
-   const someoneIsTyping = others.some((user) => user.presence?.isTyping)
-
-   return (
-      <Fragment>
-         {someoneIsTyping && (
-            <div className="someone_is_typing">Alguém está digitando</div>
-         )}
-
-         {!someoneIsTyping && null}
-      </Fragment>
-   )
-}
 
 export default function App() {
    const {
@@ -45,13 +25,7 @@ export default function App() {
       return () => leaveRoom(roomId)
    }, [enterRoom, leaveRoom])
 
-   if (isStorageLoading) {
-      return (
-         <div className="loading">
-            <img src="https://liveblocks.io/loading.svg" alt="Loading" />
-         </div>
-      )
-   }
+   if (isStorageLoading) return <StorageLoading />
 
    return (
       <div className="container">

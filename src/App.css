@@ -54,6 +54,7 @@ input:focus {
    border: 0 solid;
    appearance: button;
    background-color: transparent;
+   cursor: pointer;
 }
 
 .delete_button:focus {
